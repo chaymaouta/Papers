@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soft T-LVM Explainer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="shell">
+    <div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span> Soft T‑LVM Explainer</div>
+    <a href="https://doi.org/10.1007/s10844-022-00769-7" target="_blank" rel="noopener noreferrer">Read the paper ↗</a>
+  </div>
+</header>
+<main class="shell">
+  <section class="hero" aria-labelledby="page-title">
+    <div>
+      <h1 id="page-title">How Soft T‑LVM votes</h1>
+      <p>Follow a news item through six text representations and three levels of soft voting. Select any voter to see the probabilities it combines.</p>
+    </div>
+    <span class="tag">Illustrative scores</span>
+  </section>
+  <section class="workbench" aria-label="Soft T-LVM interactive simulation">
+    <form class="input-panel" id="input-form">
+      <label for="claim">News text</label>
+      <textarea id="claim" maxlength="3000" rows="2" required></textarea>
+      <div class="input-actions">
+        <div class="example-group" id="examples"><span class="example-label">Examples</span></div>
+        <div class="run-group"><span id="run-status" role="status"></span><button class="primary" type="submit">Run trace</button></div>
+      </div>
+    </form>
+    <div class="toolbar">
+      <nav aria-label="Trace stages"><ol class="steps" id="steps"></ol></nav>
+      <div class="navigation">
+        <button class="plain" id="prev" type="button" aria-label="Previous stage">←</button>
+        <button class="plain" id="next" type="button" aria-label="Next stage">→</button>
+      </div>
+    </div>
+    <section class="feature-explorer" id="feature-explorer" aria-labelledby="feature-title" hidden></section>
+    <div class="workspace" id="voting-workspace">
+      <section class="graph-wrap" aria-label="Voting architecture">
+        <div class="graph-title"><h2>Architecture</h2><p class="hint">Select a voter to trace its inputs.</p></div>
+        <div class="flow" id="flow">
+          <canvas id="wires" aria-hidden="true"></canvas>
+          <div class="flow-col">
+            <div class="col-head">Level 1 · feature voters</div>
+            <div class="branch"><span class="branch-name">Bag-of-Words</span><div class="branch-voters" id="bow-voters"></div></div>
+            <div class="branch tfidf"><span class="branch-name">TF‑IDF</span><div class="branch-voters" id="tfidf-voters"></div></div>
+          </div>
+          <div class="flow-col">
+            <div class="col-head">Level 2 · fusion</div>
+            <div id="v7"></div>
+            <div id="v8"></div>
+          </div>
+          <div class="flow-col">
+            <div class="col-head">Level 3 · decision</div>
+            <div class="result-node-slot" id="v9" style="grid-row: 2 / 4"></div>
+          </div>
+        </div>
+        <div class="mapping" aria-label="Chart legend">
+          <span><i class="dot"></i> Simulated P(fake)</span>
+          <span><i class="dot real"></i> Simulated P(real)</span>
+          <span><i class="dot path"></i> Selected path</span>
+        </div>
+        <details class="inline-details">
+          <summary>What the demo computes</summary>
+          <p>The page computes n‑gram counts and TF‑IDF from a small set of invented examples. A toy scoring rule uses those features to supply five illustrative classifier probabilities per voter. The three voting levels average those probabilities. The paper’s trained models and evaluation data are separate from this demo.</p>
+        </details>
+      </section>
+      <aside class="inspector" id="inspector" aria-label="Calculation inspector"></aside>
+    </div>
+  </section>
+  <footer class="app-footer">
+    <span>Jlifi, Sakrani &amp; Duvallet · Journal of Intelligent Information Systems · 2023</span>
+    <span><a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noopener noreferrer">Design inspiration · Transformer Explainer ↗</a></span>
+  </footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
